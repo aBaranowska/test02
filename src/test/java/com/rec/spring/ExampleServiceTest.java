@@ -1,17 +1,14 @@
 package com.rec.spring;
 
-import static org.junit.Assert.assertEquals;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.springframework.beans.factory.NoUniqueBeanDefinitionException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 public class ExampleServiceTest {
-
-	private static final String HELLO_WORLD = "Hello world!";
 
 	private ApplicationContext context;
 
@@ -25,10 +22,9 @@ public class ExampleServiceTest {
 		((AbstractApplicationContext) context).close();
 	}
 
-	@Test
+	@Test(expected = NoUniqueBeanDefinitionException.class)
 	public void getBean() {
-		Service bean = context.getBean(Service.class);
-		assertEquals(HELLO_WORLD, bean.getMessage());
+		context.getBean(Service.class);
 	}
 
 }
